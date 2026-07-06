@@ -232,6 +232,20 @@ td.underplan{background:var(--bad-bg)}
 .setrow .vol{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;color:var(--ink-2);text-align:right;padding-right:4px}
 .sethead{display:grid;grid-template-columns:44px 84px 96px 74px 74px 1fr 34px;gap:8px;font-size:10.5px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--ink-3);font-weight:700;padding:6px 0 2px}
+.setrow.work{background:#EAF3FB;border-radius:9px;padding:5px 8px;margin:2px 0}
+.setrow.back{background:#FDEFDF;border-radius:9px;padding:5px 8px;margin:2px 0}
+.setrow.back .setn{color:#A9660B;font-weight:700}
+.setrow.extra{background:#F4F6F8;border-radius:9px;padding:5px 8px;margin:2px 0}
+.tickline{display:flex;flex-wrap:wrap;gap:10px 14px;padding:10px 2px}
+.tickline label{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;background:#FFFFFFCC;border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.tickline input[type=checkbox]{width:17px;height:17px;accent-color:var(--tide)}
+.exblock.warmb>header{background:#E9F5EC}
+.exblock.warmb .sets{background:#F4FAF6}
+.exblock.cleanb>header{background:#F1ECF9}
+.exblock.cleanb .sets{background:#F8F5FC}
+.chip.warmc{background:#DFF0E3;color:#1F5B33;border:0}
+.chip.cleanc{background:#E9E0F5;color:#4B2E83;border:0}
+.chip.backc{background:#FBE3C4;color:#8A5406;border:0}
 @media (max-width:760px){
   .sethead{display:none}
   .setrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-bottom:1px dashed var(--line);padding:9px 0}
@@ -312,22 +326,22 @@ overview:{
 },
 
 template:{
-  strap:"Adapt intensity to current phase — see Phase sheets. S&C = Mon / Wed / Fri.",
+  strap:"HYBRID BLOCK (from 6 Jul): strength priority + aerobic floor. 3 lifts · 4 easy ergs · 1 hard erg. Easy days stay honestly easy — that's what lets the lifting go hard.",
   rows:[
-    ["MONDAY","AM: S&C · PM: Erg (Light)","PM — 20–30' UT2 easy row\nRate cap: 18spm\nFocus: clean catches, body prep after S&C","AM — Full S&C Session A\n(Squat, Hinge, Row, Press, Core)","AM 60' / PM 35'","S&C first, allow 4–6hr gap before erg. Keep erg very easy."],
-    ["TUESDAY","AM: Erg (Main) · PM: Erg (Easy)","AM — Main quality erg session\n(Phase dependent: UT1/AT/TR)\nPM — 20' UT2 recovery row","—","AM 60–75' / PM 25'","Tuesday AM is your key weekly piece. Full effort."],
-    ["WEDNESDAY","AM: S&C · PM: Erg (Volume)","PM — 40–60' UT2 steady state\nRate: 18–20spm\nHigh power per stroke","AM — Full S&C Session B\n(Box Jump/Plyo, RDL, Row, Step Up, Core)","AM 60' / PM 65'","Wednesday S&C lighter on legs than Mon. Erg is pure aerobic volume."],
-    ["THURSDAY","AM: Erg (Quality) · PM: Erg (Easy)","AM — Secondary quality session\n(1 zone below Tuesday)\nPM — 20' UT2 easy flush","—","AM 55–70' / PM 25'","Thursday is second quality session of week. Not as hard as Tuesday."],
-    ["FRIDAY","AM: S&C · PM: Erg (Volume)","PM — 30–45' UT2 / UT1 mix\nOr 6×10' UT1 intervals\nRate cap 22spm","AM — Full S&C Session C\n(Trap Bar/Pulls, Squats, Press, Plyo, Core)","AM 60' / PM 50'","S&C focus on explosiveness (Trap Bar Jumps etc). Erg keeps aerobic top-up."],
-    ["SATURDAY","AM: Erg (Long) · PM: OFF","AM — Longest erg of the week\n60–90' continuous UT2\nOR 2×30' UT2 with 5' rest","—","AM 70–95'","This is your aerobic bank session. No shortcuts. Rate 16–18spm throughout."],
-    ["SUNDAY","AM: Erg (Recovery) · PM: OFF","AM — 20–30' very easy UT2\nOr cross-train (bike/swim)\nHR must stay <140bpm","—","AM 30'","Active recovery only. If feeling beat up, take full rest. Never skip the next Monday."]
+    ["MONDAY","AM: S&C (hard) · PM: Erg (Easy)","PM — 40–45' UT2 easy\nHR-capped, conversational\n≈ 10 km","AM — Full S&C Session A\nHeavy top sets + 2 back-off sets on main lifts","AM 75–80' / PM 45'","Lift fresh in the AM — strength is the priority. PM erg is easy aerobic volume only."],
+    ["TUESDAY","AM: HARD ERG (key) · PM: OFF","AM — the week's ONE hard erg\n4×10' AT or 4×2000m @ r24–28\n≈ 14 km","—","AM 65–75'","Own day, fresh legs, full quality — this protects the Nov 2K. PM off (20' flush only if needed)."],
+    ["WEDNESDAY","AM: S&C (hard) · PM: Erg (Easy)","PM — 45–60' UT2 easy\nRate 16–18\n≈ 12 km","AM — Full S&C Session B\nHeavy top sets + 2 back-off sets on main lifts","AM 75–80' / PM 45–60'","Easy means easy. If you can't hold a conversation, you're going too hard."],
+    ["THURSDAY","AM: Erg (Steady UT1) · PM: OFF","AM — 3×15' UT1 or 10km R20–22\n≈ 15 km","—","AM 60–70'","The one firmer aerobic day — steady, not hard. PM off."],
+    ["FRIDAY","AM: S&C (power) · PM: Erg (Flush)","PM — 30' UT2 flush (optional)\n≈ 7 km","AM — Full S&C Session C\nTrap Bar DL + jumps, bench, pull-ups + back-offs","AM 75–80' / PM 30'","Keep the PM short — the long row is tomorrow morning."],
+    ["SATURDAY","AM: Erg (Long) · PM: OFF","AM — 75–90' continuous UT2\nRate 16–18\n≈ 18–20 km","—","AM 75–90'","Biggest aerobic session of the week. Don't cut it short."],
+    ["SUNDAY","REST","Optional 40' very easy spin / cross-train\nHR <135","—","0–40'","Full recovery. Two empty evenings + Sunday are what make the harder lifting work."]
   ],
   counts:[
-    ["S&C Sessions","3","Mon AM / Wed AM / Fri AM"],
-    ["Quality Erg Sessions","2","Tue AM + Thu AM (phase-dependent intensity)"],
-    ["Volume Erg Sessions","4","Wed PM / Fri PM / Sat AM + second daily"],
-    ["Recovery Erg Sessions","3","Mon PM / Thu PM / Sun AM"],
-    ["TOTAL SESSIONS","12","~8–10 hrs total training time per week"]
+    ["S&C (heavier: top sets + back-offs)","3","Mon / Wed / Fri AM"],
+    ["Easy erg (UT2)","4","Mon PM / Wed PM / Fri PM / Sat AM long"],
+    ["Steady erg (UT1)","1","Thu AM"],
+    ["HARD erg","1","Tue AM — the only hard erg of the week"],
+    ["TOTAL","8–9","≈70–80 km erg — down ⅓; the freed recovery budget goes to lifting"]
   ]
 },
 
@@ -496,7 +510,8 @@ snc:[
   ["STRENGTH","½ Kneeling Single Arm DB Press (C)","3","8ea","Activate glute of down leg","Increase DB weight when 8ea feels easy"],
   ["STRENGTH","Hip Thrust – Barbell","3","6–8","Full hip extension at top, 1s pause. Chin tucked, ribs down.","Working weight 80kg. Add 2.5–5kg when all reps clean."],
   ["ROBUSTNESS","V-Ups","3","10","Control lowering phase","Progress to weighted V-Up in P2"],
-  ["ROBUSTNESS","Weighted Russian Twists","3","8ea","Rotate fully, don't rush","Increase plate weight P2 onwards"]
+  ["ROBUSTNESS","Weighted Russian Twists","3","8ea","Rotate fully, don't rush","Increase plate weight P2 onwards"],
+  ["ROBUSTNESS","45° Back Extension","2","12","Glute-driven rise, neutral spine, no hyper-arch at top","+5kg now. Add load when 2×12 is clean."]
  ]},
  {key:"B", day:"Wednesday", title:"Session B — Posterior Chain + Plyo + Pull", rows:[
   ["PREP","Soleus Split Squat Hold","2","30s ea","Upright torso, front heel down","Build to 45s"],
@@ -524,7 +539,7 @@ snc:[
   ["STRENGTH","Pull-Ups (A)","3","6","Full hang to chin over bar. No kipping.","Add band assist if needed. Target BW for 6ea by P2."],
   ["STRENGTH","Band Face Pull (A)","3","10","External rotation at end range","Light resistance — this is shoulder health, not strength."],
   ["STRENGTH","Bulgarian Split Squat (B)","4","6ea","Rear foot elevated, vertical torso","Key single-leg strength. Load progressively."],
-  ["STRENGTH","DB Chest Press (B)","3","6","Control the eccentric, press with intent","Increase load when all 6 feel fast."],
+  ["STRENGTH","Barbell Bench Press (B)","3","6","Control the eccentric, press with intent. Spotter or safety pins.","55kg working. +2.5kg when all 6 feel fast."],
   ["STRENGTH","Dive Bomb Push-Ups (B)","3","6–10","Full range. Don't sag the hips.","Progress to weighted vest P3."],
   ["CORE","Hanging Knee Tucks","2–3","8–10","Control the swing. Squeeze at top.","Progress to straight leg raise P2."],
   ["CORE","Side Plank + Knee Drive","2","15ea","Full plank position, drive knee to chest","Add weight vest P3."],
@@ -626,14 +641,14 @@ mobility:{
 },
 
 nutrition:{
-  strap:"Calibrated to 86 kg, 186 cm, training 12 sessions/wk. Goal: maintain weight, maximise 2K improvement.",
+  strap:"Calibrated to ~90 kg, 186 cm, hybrid block (8–9 sessions/wk). Goal: small deliberate surplus — get big and strong while holding the aerobic floor.",
   dayTargets:[
-    ["Saturday (long row)","~4,200 kcal","690 g (8 g/kg)","170 g (2 g/kg)","90 g","Highest demand day. Pre-fuel essential."],
-    ["Tue / Thu (key erg)","~3,900 kcal","600 g (7 g/kg)","170 g","85 g","Quality session days — eat to perform."],
-    ["Mon / Wed / Fri (double session)","~3,800 kcal","515 g (6 g/kg)","170 g","85 g","Standard training days — balanced fuelling."],
-    ["Sunday (rest)","~3,200 kcal","345 g (4 g/kg)","150 g","80 g","Lower carb on non-training days. Protein still high."]
+    ["Mon / Wed / Fri (lift + easy erg)","~3,700 kcal","480 g (5.5 g/kg)","180 g (2 g/kg)","90 g","Lifting days in a small surplus — muscle needs fuel."],
+    ["Tuesday (hard erg)","~3,600 kcal","520 g (6 g/kg)","180 g","85 g","The week's one quality erg — carbs up around it."],
+    ["Thu / Sat (steady + long row)","~3,600 kcal","520 g (6 g/kg)","180 g","85 g","Fuel the aerobic work, especially the Saturday long row."],
+    ["Sunday (rest)","~3,100 kcal","330 g (3.5 g/kg)","170 g","85 g","Lower carb on the rest day. Protein stays high."]
   ],
-  weekly:"Weekly average: ~3,800 kcal/day · ~26,500 kcal/week · Target stable bodyweight ±1 kg over the programme",
+  weekly:"Weekly average: ~3,600 kcal/day · small deliberate surplus · target +1.5–2.5 kg over the block (slow enough to stay mostly lean)",
   hydration:[
     ["Rest day","3.5–4 L","—","—","—","No"],
     ["Single erg <60 min","4–4.5 L","400 ml, 60 min before","150–250 ml every 15 min","1.5× weight lost","No"],
@@ -646,7 +661,7 @@ nutrition:{
     ["Potassium","3,500–4,700 mg","Muscle function, fluid balance, cramp prevention.","Bananas, baked potatoes (skin on), beans, salmon, spinach, yogurt"],
     ["Magnesium","400–500 mg","Muscle relaxation, sleep quality, cramp prevention.","Dark chocolate (70%+), almonds, pumpkin seeds, oats, leafy greens"]
   ],
-  sampleStrap:"SAMPLE TUESDAY — KEY ERG AM + RECOVERY PM (target ~3,900 kcal)",
+  sampleStrap:"SAMPLE TUESDAY — HARD ERG AM, PM OFF (target ~3,600 kcal)",
   sample:[
     ["Pre-AM","Wake-up fuel","Banana + black coffee + water","27 g","1 g","0 g"],
     ["AM","🚣 KEY SESSION — 6×10' UT2","","","",""],
@@ -923,6 +938,25 @@ function seededState() {
   return base;
 }
 
+
+/* ---------- pre-laid set plan (working + back-off) ---------- */
+const SETS_PLAN = {"A: 3D Calf Raises":{"t": "warm", "n": 1, "r": "8ea"},"A: World's Greatest Stretch":{"t": "warm", "n": 1, "r": "6ea"},"A: Rotator Cuff Primer":{"t": "warm", "n": 1, "r": "8ea"},"A: Copenhagen Iso Hold":{"t": "warm", "n": 2, "r": "30s ea"},"A: Front Rack Mobility":{"t": "clean", "n": 2, "r": "30s"},"A: Tall Clean":{"t": "clean", "n": 3, "r": "5"},"A: High Pull":{"t": "lift", "n": 3, "r": "3", "back": 2, "br": "3"},"A: Back Squat":{"t": "lift", "n": 4, "r": "6", "back": 2, "br": "8"},"A: Reverse Lunge":{"t": "lift", "n": 3, "r": "6ea"},"A: Half Kneeling DB Press":{"t": "lift", "n": 3, "r": "8ea"},"A: Hip Thrust":{"t": "lift", "n": 3, "r": "6–8"},"A: V-Ups":{"t": "lift", "n": 3, "r": "10"},"A: Russian Twists":{"t": "lift", "n": 3, "r": "8ea"},"A: Back Extension":{"t": "lift", "n": 2, "r": "12"},"B: Soleus Split Squat Hold":{"t": "warm", "n": 2, "r": "30s ea"},"B: Deep Squat Hold":{"t": "warm", "n": 1, "r": "30s"},"B: Hip Int/Ext Rotation":{"t": "warm", "n": 1, "r": "10ea"},"B: Bent Over Y-T-I":{"t": "warm", "n": 2, "r": "10 each"},"B: Clean Deadlift":{"t": "clean", "n": 3, "r": "3"},"B: Hang High Pull":{"t": "clean", "n": 3, "r": "3"},"B: Box Jump":{"t": "lift", "n": 3, "r": "3"},"B: Kickstand RDL":{"t": "lift", "n": 3, "r": "6ea", "back": 2, "br": "8ea"},"B: 3-Point DB Row":{"t": "lift", "n": 4, "r": "6ea"},"B: Dynamic Step Up":{"t": "lift", "n": 3, "r": "6ea"},"B: Plank Pull-Through":{"t": "lift", "n": 3, "r": "8"},"B: Wall Deadbug":{"t": "lift", "n": 3, "r": "30s ea"},"B: Back Extension":{"t": "lift", "n": 3, "r": "12"},"C: Stick Warmup":{"t": "warm", "n": 1, "r": "60s"},"C: OH Hurdle Step Over":{"t": "warm", "n": 1, "r": "10ea"},"C: Seated Leg Lift":{"t": "warm", "n": 1, "r": "10ea"},"C: SL DB Calf Raise":{"t": "warm", "n": 1, "r": "12ea"},"C: Hang Muscle Clean":{"t": "clean", "n": 3, "r": "3"},"C: Front Squat (light)":{"t": "clean", "n": 3, "r": "5"},"C: Trap Bar Deadlift":{"t": "lift", "n": 3, "r": "8", "back": 2, "br": "8"},"C: Trap Bar Jump":{"t": "lift", "n": 3, "r": "3"},"C: Pull-Ups":{"t": "lift", "n": 3, "r": "6"},"C: Band Face Pull":{"t": "lift", "n": 3, "r": "10"},"C: Bulgarian Split Squat":{"t": "lift", "n": 4, "r": "6ea"},"C: Barbell Bench Press":{"t": "lift", "n": 3, "r": "6", "back": 2, "br": "8"},"C: Dive Bomb Push-Ups":{"t": "lift", "n": 3, "r": "6–10"},"C: Hanging Knee Tucks":{"t": "lift", "n": 3, "r": "8–10"},"C: Side Plank + Knee Drive":{"t": "lift", "n": 2, "r": "15ea"},"C: Back Extension":{"t": "lift", "n": 3, "r": "12"}};
+const BACKOFF_PCT = 0.75;
+function round2p5(x) { return Math.round(x / 2.5) * 2.5; }
+/* Suggested back-off weight = 75% of today's top working set (falls back to the
+   week's planned weight before anything is logged), rounded to 2.5 kg. */
+function backoffSuggest(exName, week, entries) {
+  const plan = SETS_PLAN[exName]; if (!plan || !plan.back) return "";
+  let top = 0;
+  (entries || []).forEach(e => { const sn = e.set || 0; if (sn >= 1 && sn <= plan.n) { const w = parseFloat(e.weight); if (w > top) top = w; } });
+  if (!top) {
+    const pr = progRowForLog(exName);
+    const p = pr && S.plan[progKey(pr)] ? parseFloat(S.plan[progKey(pr)][week]) : NaN;
+    if (!isNaN(p)) top = p;
+  }
+  return top ? round2p5(top * BACKOFF_PCT) : "";
+}
+
 let S = null;
 (function initState() {
   const loaded = Store.load();
@@ -939,6 +973,7 @@ let S = null;
     ["schedDone","schedNotes","plan","act"].forEach(k => { S[k] = Object.assign({}, base[k], S[k] || {}); });
     if (!S.nextId) S.nextId = 1 + S.log.reduce((m, e) => Math.max(m, e.id || 0), 0);
   }
+  if (!S.doneChecks) S.doneChecks = {};
   /* Apply exercise renames to whatever state we ended up with, then persist. */
   migrateState(S);
   Store.save(S);
@@ -1308,7 +1343,7 @@ function vOverview() {
 
 /* ================= WEEKLY TEMPLATE ================= */
 function vTemplate() {
-  let h = vhead("Programme", "Weekly Session Template", "12 sessions / week. " + DATA.template.strap);
+  let h = vhead("Programme", "Weekly Session Template", "8–9 sessions / week · hybrid block. " + DATA.template.strap);
   h += '<div class="card">' + table(["Day", "Session Type", "Erg Session", "S&C Session", "Duration", "Notes"],
     DATA.template.rows.map(r => '<tr><td class="dayname">' + esc(r[0]) + "</td><td>" + esc(r[1]) + '</td><td><div class="cellsub">' + br(r[2]) + '</div></td><td><div class="cellsub">' + br(r[3]) + '</div></td><td class="num">' + esc(r[4]) + '</td><td><div class="cellsub">' + esc(r[5]) + "</div></td></tr>").join("")) + "</div>";
   h += '<div class="card"><h2>Weekly session count</h2>' + table(["Type", "#Count", "When"],
@@ -1324,6 +1359,7 @@ function vPhases(q) {
   if ((!q || !q.p) && w >= 1 && w <= 12) phaseTab = phaseOfWeek(w);
   const P = DATA.phases[phaseTab - 1];
   let h = vhead("Programme", "Phase Plans", "Day-by-day prescriptions, weekly progression and S&C focus for each block.");
+  h += '<div class="note amber"><b>Hybrid pivot (6 Jul):</b> erg is now 4 easy + 1 hard per week (≈70–80 km) and the S&amp;C goes harder — heavy top sets + 2 back-off sets on the main lifts. The day tables below predate the pivot: use the Weekly Template for the week shape; each phase&#39;s intent (Tuesday key-session type, S&amp;C focus) still applies.</div>';
   h += '<div class="tabs">' + DATA.phases.map(p =>
     '<button class="' + (p.n === phaseTab ? "on" : "") + '" data-ph="' + p.n + '">Phase ' + p.n + " · " + esc(p.name.split("—")[1].trim()) + "</button>").join("") + "</div>";
 
@@ -1456,7 +1492,7 @@ function vLog(q) {
   }
   const sched = schedFor(logSel.week, logSel.session);
   let h = vhead("Log & Track", "Workout Log — one row per set",
-    "Pick a session, then enter reps and weight for each set. Volume and phase calculate automatically; RPE, RIR and notes are optional.");
+    "Sets are pre-laid out — just enter reps and weight. Blue = working sets · Peach = back-off sets (weight auto-fills at 75% of your top working set) · Green = warm-ups (tick) · Lavender = clean prep (tick).");
 
   h += '<div class="card"><div class="toolrow">' +
     '<div style="min-width:280px"><label class="f">Scheduled session</label><select id="logPick">' +
@@ -1466,22 +1502,48 @@ function vLog(q) {
     '<div><span class="chip ghost">Session ' + logSel.session + "</span> " + phaseChip(logSel.week) + "</div>" +
     "</div>";
 
-  // exercise blocks in performance order
+  // exercise blocks in performance order — sets pre-laid out per the programme
   const order = SEED.order[logSel.session];
   order.forEach(exName => {
+    const plan = SETS_PLAN[exName] || { t: "lift", n: 3, r: "" };
     const entries = S.log.filter(e => e.week === logSel.week && e.session === logSel.session && e.exercise === exName)
       .sort((a, b) => (a.set || 0) - (b.set || 0) || a.id - b.id);
     const pr = progRowForLog(exName);
     const planned = pr && S.plan[progKey(pr)] ? S.plan[progKey(pr)][logSel.week] : undefined;
-    h += '<div class="exblock"><header><div><b>' + esc(displayEx(exName)) + "</b>" +
-      (pr ? ' <span class="chip ghost">' + esc(pr.load) + "</span>" : "") + "</div>" +
-      '<div class="meta">' + (planned !== undefined && planned !== "" && planned != null ? "Wk " + logSel.week + " plan: <b>" + esc(planned) + (pr && pr.load === "Time hold" ? " s" : pr && pr.load === "Weighted (kg)" ? " kg" : "") + "</b> · " : "") +
-      entries.length + " set" + (entries.length === 1 ? "" : "s") + '</div></header><div class="sets">';
-    if (entries.length) {
-      h += '<div class="sethead"><span>Set</span><span>Reps</span><span>Weight kg</span><span>RPE</span><span>RIR</span><span>Notes</span><span></span></div>';
-      entries.forEach(e => { h += setRowHtml(e); });
+    const isTick = plan.t === "warm" || plan.t === "clean";
+    const blockCls = plan.t === "warm" ? " warmb" : plan.t === "clean" ? " cleanb" : "";
+    const typeChip = plan.t === "warm" ? ' <span class="chip warmc">warm-up</span>' : plan.t === "clean" ? ' <span class="chip cleanc">clean prep</span>' : "";
+    h += '<div class="exblock' + blockCls + '"><header><div><b>' + esc(displayEx(exName)) + "</b>" + typeChip +
+      (pr && !isTick ? ' <span class="chip ghost">' + esc(pr.load) + "</span>" : "") +
+      (plan.back ? ' <span class="chip backc">+' + plan.back + " back-off @ " + Math.round(BACKOFF_PCT * 100) + "%</span>" : "") + "</div>" +
+      '<div class="meta">' + plan.n + " × " + esc(plan.r) +
+      (planned !== undefined && planned !== "" && planned != null ? " · Wk " + logSel.week + " plan: <b>" + esc(planned) + (pr && pr.load === "Time hold" ? " s" : pr && pr.load === "Weighted (kg)" ? " kg" : "") + "</b>" : "") +
+      '</div></header><div class="sets">';
+    const used = {};
+    if (isTick) {
+      const tkey = logSel.week + "|" + logSel.session + "|" + exName;
+      const ticks = (S.doneChecks && S.doneChecks[tkey]) || [];
+      h += '<div class="tickline">';
+      for (let i = 0; i < plan.n; i++) {
+        h += '<label><input type="checkbox" data-tick="' + esc(tkey) + '" data-ti="' + i + '"' + (ticks[i] ? " checked" : "") + "> Set " + (i + 1) + ' <span class="hint">· ' + esc(plan.r) + "</span></label>";
+      }
+      h += "</div>";
+      if (entries.length) {
+        h += '<div class="sethead"><span>Set</span><span>Reps</span><span>Weight kg</span><span>RPE</span><span>RIR</span><span>Notes</span><span></span></div>';
+        entries.forEach(e => { used[e.id] = 1; h += setRowHtml(e, "extra", null); });
+      }
     } else {
-      h += '<div class="empty" style="padding:6px">No sets logged yet.</div>';
+      const total = plan.n + (plan.back || 0);
+      h += '<div class="sethead"><span>Set</span><span>Reps</span><span>Weight kg</span><span>RPE</span><span>RIR</span><span>Notes</span><span></span></div>';
+      const sugg = backoffSuggest(exName, logSel.week, entries);
+      for (let i = 1; i <= total; i++) {
+        const isBack = i > plan.n;
+        const label = isBack ? "B" + (i - plan.n) : "#" + i;
+        const e = entries.find(x => x.set === i && !used[x.id]);
+        if (e) { used[e.id] = 1; h += setRowHtml(e, isBack ? "back" : "work", label); }
+        else h += ghostRowHtml(exName, i, isBack, label, isBack ? sugg : "");
+      }
+      entries.forEach(e => { if (!used[e.id]) { used[e.id] = 1; h += setRowHtml(e, "extra", null); } });
     }
     h += '<button class="btn subtle sm" data-addset="' + esc(exName) + '">+ Add set</button></div></div>';
   });
@@ -1546,6 +1608,36 @@ function vLog(q) {
         e[inp.dataset.f] = inp.value; save();
         const volEl = root.querySelector('[data-vol="' + e.id + '"]');
         if (volEl) { const v = entryVolume(e); volEl.textContent = v == null ? "—" : fmt(v, 1) + " kg"; }
+        if (inp.dataset.f === "weight") refreshBackoffs(root, e.exercise);
+      }));
+      // pre-laid (ghost) rows: the first keystroke creates the entry, then edits it live
+      root.querySelectorAll("input[data-gex]").forEach(inp => inp.addEventListener("input", () => {
+        if (inp.dataset.f === "weight" && inp.dataset.auto) inp.removeAttribute("data-auto");
+        const row = inp.closest(".setrow");
+        let id = row.dataset.eid;
+        if (!id) {
+          const entry = {
+            id: S.nextId++, date: root.querySelector("#logDate").value || todayISO(),
+            session: logSel.session, week: logSel.week, exercise: inp.dataset.gex,
+            set: +inp.dataset.gset, reps: "", weight: "", rpe: "", rir: "", notes: ""
+          };
+          row.querySelectorAll("input[data-f]").forEach(x => { if (x.value !== "") entry[x.dataset.f] = x.value; });
+          S.log.push(entry);
+          id = row.dataset.eid = String(entry.id);
+        }
+        const e = S.log.find(x => x.id === +id);
+        if (!e) return;
+        e[inp.dataset.f] = inp.value; save();
+        const volEl = row.querySelector(".vol");
+        if (volEl) { const v = entryVolume(e); volEl.textContent = v == null ? "" : "vol " + fmt(v, 1) + " kg"; }
+        if (inp.dataset.f === "weight") refreshBackoffs(root, e.exercise);
+      }));
+      // warm-up / clean-prep tick boxes
+      root.querySelectorAll("input[data-tick]").forEach(cb => cb.addEventListener("change", () => {
+        if (!S.doneChecks) S.doneChecks = {};
+        const k = cb.dataset.tick, i = +cb.dataset.ti;
+        const arr = S.doneChecks[k] || (S.doneChecks[k] = []);
+        arr[i] = cb.checked; save();
       }));
       root.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", () => {
         S.log = S.log.filter(e => e.id !== +b.dataset.del); save(); render("log");
@@ -1577,16 +1669,32 @@ function vLog(q) {
     }
   };
 }
-function setRowHtml(e) {
+function setRowHtml(e, cls, label) {
   const v = entryVolume(e);
-  function inp(f, type, cls, ph) {
-    return '<input class="mini ' + (cls || "") + '" type="' + type + '" data-eid="' + e.id + '" data-f="' + f + '" value="' + esc(e[f] == null ? "" : e[f]) + '"' + (ph ? ' placeholder="' + ph + '"' : "") + ' aria-label="' + f + '">';
+  function inp(f, type, cls2, ph) {
+    return '<input class="mini ' + (cls2 || "") + '" type="' + type + '" data-eid="' + e.id + '" data-f="' + f + '" value="' + esc(e[f] == null ? "" : e[f]) + '"' + (ph ? ' placeholder="' + ph + '"' : "") + ' aria-label="' + f + '">';
   }
-  return '<div class="setrow"><span class="setn">#' + (e.set || "·") + "</span>" +
+  return '<div class="setrow ' + (cls || "") + '"><span class="setn">' + esc(label || ("#" + (e.set || "·"))) + "</span>" +
     inp("reps", "number", "", "reps") + inp("weight", "number", "", "kg") + inp("rpe", "number", "", "RPE") + inp("rir", "number", "", "RIR") +
     inp("notes", "text", "", "notes") +
     '<button class="iconb" data-del="' + e.id + '" title="Delete set" aria-label="Delete set">✕</button>' +
     '<span></span><span class="vol" data-vol="' + e.id + '" style="grid-column:2/4">' + (v == null ? "" : "vol " + fmt(v, 1) + " kg") + "</span></div>";
+}
+/* A planned-but-unlogged set row: typing anything creates the log entry. */
+function ghostRowHtml(exName, setN, isBack, label, autoW) {
+  function gin(f, type, ph, val, auto) {
+    return '<input class="mini" type="' + type + '" data-gex="' + esc(exName) + '" data-gset="' + setN + '" data-f="' + f + '" value="' + esc(val == null ? "" : val) + '"' + (auto ? ' data-auto="1"' : "") + (ph ? ' placeholder="' + ph + '"' : "") + ' aria-label="' + f + '">';
+  }
+  return '<div class="setrow ' + (isBack ? "back" : "work") + '"><span class="setn">' + esc(label) + "</span>" +
+    gin("reps", "number", "reps") + gin("weight", "number", "kg", isBack ? autoW : "", isBack && autoW !== "") +
+    gin("rpe", "number", "RPE") + gin("rir", "number", "RIR") + gin("notes", "text", "notes") +
+    '<span></span><span></span><span class="vol" style="grid-column:2/4"></span></div>';
+}
+/* Keep untouched back-off weights in sync with the top working set (75%). */
+function refreshBackoffs(root, exName) {
+  const entries = S.log.filter(e => e.week === logSel.week && e.session === logSel.session && e.exercise === exName);
+  const sugg = backoffSuggest(exName, logSel.week, entries);
+  root.querySelectorAll('input[data-f="weight"][data-auto]').forEach(x => { if (x.dataset.gex === exName) x.value = sugg; });
 }
 let renderTimer = null;
 function renderSoon(v) { clearTimeout(renderTimer); renderTimer = setTimeout(() => render(v), 350); }
