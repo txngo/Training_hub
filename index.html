@@ -246,6 +246,7 @@ td.underplan{background:var(--bad-bg)}
 .chip.warmc{background:#DFF0E3;color:#1F5B33;border:0}
 .chip.cleanc{background:#E9E0F5;color:#4B2E83;border:0}
 .chip.backc{background:#FBE3C4;color:#8A5406;border:0}
+.mini.auto{color:var(--tide);font-style:italic;font-weight:600}
 @media (max-width:760px){
   .sethead{display:none}
   .setrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-bottom:1px dashed var(--line);padding:9px 0}
@@ -1094,11 +1095,37 @@ function trunkSymmetry() {
   return { d, msg: d > 15 ? "BIAS weaker side (>15s gap)" : "Symmetry OK (<=15s)", bad: d > 15 };
 }
 /* progression derived columns */
+/* Auto-actuals: the Act column fills itself from the Workout Log — the top
+   weight logged for that exercise in that week (back-offs sit at 75%, so the
+   max is your working weight). A manually typed Act always wins; derived
+   values are virtual — never written into S.act — so clearing a manual entry
+   simply reverts the cell to auto. */
+function orderNameFor(progRow) {
+  return sectionLetter(progRow.section) + ": " + progRow.name.replace(/\s*\(clean prep\)\s*$/i, "").trim();
+}
+function progRowByKey(k) { return SEED.prog.find(r => progKey(r) === k); }
+function actFromLog(progRow, week) {
+  const ex = orderNameFor(progRow);
+  let top = null;
+  S.log.forEach(e => {
+    if (+e.week === +week && e.exercise === ex) {
+      const w = num(e.weight);
+      if (w != null && w > 0 && (top == null || w > top)) top = w;
+    }
+  });
+  return top;
+}
+function effAct(k, week) {
+  const m = (S.act[k] || {})[week];
+  if (m !== "" && m != null) return { v: m, auto: false };
+  const row = progRowByKey(k);
+  const d = row ? actFromLog(row, week) : null;
+  return d != null ? { v: d, auto: true } : { v: "", auto: false };
+}
 function progDerived(k) {
-  const a = S.act[k] || {};
   let first = null, last = null, pr = null;
   for (let w = 1; w <= 12; w++) {
-    const v = num(a[w]);
+    const v = num(effAct(k, w).v);
     if (v != null && v > 0) { if (first == null) first = v; last = v; pr = pr == null ? v : Math.max(pr, v); }
   }
   const pct = first != null && last != null && first !== 0 ? (last - first) / first : null;
@@ -1722,7 +1749,7 @@ function download(name, content, mime) {
 /* ================= PROGRESSION ================= */
 function vProgression() {
   let h = vhead("Log & Track", "Progression Tracker — planned vs actual, by session",
-    "Week-1 Plan is pre-filled with your working weights. Fill later weeks' Plan from the Overload Strategy page, then record the best working weight you actually hit in Act. Green = met/beat plan · red = under · PR flags automatically.");
+    "Act fills itself from your Workout Log — the top weight you logged that week appears automatically (teal italics). Type in a cell to override; clear it to revert to auto. Plan comes from the Overload Strategy page. Green = met/beat plan · red = under · PR flags automatically.");
   h += '<div class="card"><h2>Load types &amp; colour key</h2><div class="twrap"><table><tbody>' +
     DATA.startHere.loadKey.map(r => "<tr><td style='white-space:nowrap'><b>" + esc(r[0]) + "</b></td><td>" + esc(r[1]) + "</td></tr>").join("") + "</tbody></table></div></div>";
 
@@ -1734,9 +1761,9 @@ function vProgression() {
       const k = progKey(r);
       body += '<tr data-k="' + esc(k) + '"><td><b>' + esc(r.name) + '</b></td><td style="white-space:nowrap">' + esc(r.load) + "</td>";
       for (let w = 1; w <= 12; w++) {
-        const pv = (S.plan[k] || {})[w], av = (S.act[k] || {})[w];
+        const pv = (S.plan[k] || {})[w], ea = effAct(k, w);
         body += '<td><input class="mini blue" type="number" step="any" data-pv="' + esc(JSON.stringify(["plan", k, String(w)])) + '" value="' + esc(pv == null ? "" : pv) + '" aria-label="Wk' + w + ' plan"></td>';
-        body += '<td class="' + actCls(pv, av) + '"><input class="mini" type="number" step="any" data-pv="' + esc(JSON.stringify(["act", k, String(w)])) + '" value="' + esc(av == null ? "" : av) + '" aria-label="Wk' + w + ' actual"></td>';
+        body += '<td class="' + actCls(pv, ea.v) + '"><input class="mini' + (ea.auto ? " auto" : "") + '" type="number" step="any" data-pv="' + esc(JSON.stringify(["act", k, String(w)])) + '" value="' + esc(ea.v === "" ? "" : ea.v) + '"' + (ea.auto ? ' title="Auto from Workout Log — type to override"' : "") + ' aria-label="Wk' + w + ' actual"></td>';
       }
       const d = progDerived(k);
       body += '<td class="num" data-d="first">' + (d.first == null ? "—" : fmt(d.first)) + "</td>" +
@@ -1757,6 +1784,15 @@ function vProgression() {
         if (!S[p[0]][p[1]]) S[p[0]][p[1]] = {};
         S[p[0]][p[1]][p[2]] = inp.value;
         save();
+        if (p[0] === "act" && inp.value !== "") inp.classList.remove("auto");
+        updateProgRow(root, p[1]);
+      }));
+      // clearing a manual Act reverts the cell to its auto (log-derived) value on blur
+      root.querySelectorAll("[data-pv]").forEach(inp => inp.addEventListener("change", () => {
+        const p = JSON.parse(inp.dataset.pv);
+        if (p[0] !== "act" || inp.value !== "") return;
+        const ea = effAct(p[1], +p[2]);
+        if (ea.auto) { inp.value = ea.v; inp.classList.add("auto"); inp.title = "Auto from Workout Log — type to override"; }
         updateProgRow(root, p[1]);
       }));
     }
@@ -1773,7 +1809,7 @@ function updateProgRow(root, k) {
   if (!tr) return;
   tr.querySelectorAll("[data-pv]").forEach(inp => {
     const p = JSON.parse(inp.dataset.pv);
-    if (p[0] === "act") inp.parentElement.className = actCls((S.plan[k] || {})[p[2]], (S.act[k] || {})[p[2]]);
+    if (p[0] === "act") inp.parentElement.className = actCls((S.plan[k] || {})[p[2]], effAct(k, p[2]).v);
   });
   const d = progDerived(k);
   tr.querySelector('[data-d="first"]').textContent = d.first == null ? "—" : fmt(d.first);
@@ -1802,9 +1838,9 @@ function vDashboard() {
   const KEY = [["Kickstand RDL", "B", "#0E6E8C"], ["Trap Bar Deadlift", "C", "#C96A11"], ["Back Squat", "A", "#1B7A43"], ["Bulgarian Split Squat", "C", "#7A4FA3"]];
   const series = KEY.map(([name, sx, color]) => {
     const k = sx + "|" + name;
-    return { name, color, vals: Array.from({ length: 12 }, (_, i) => { const v = num((S.act[k] || {})[i + 1]); return v != null && v > 0 ? v : null; }) };
+    return { name, color, vals: Array.from({ length: 12 }, (_, i) => { const v = num(effAct(k, i + 1).v); return v != null && v > 0 ? v : null; }) };
   });
-  h += '<div class="card"><h2>Key lift progression <span class="hint">actual kg by week, from the Progression page</span></h2>' +
+  h += '<div class="card"><h2>Key lift progression <span class="hint">actual kg by week — auto-fills from your Workout Log</span></h2>' +
     lineChart(series, Array.from({ length: 12 }, (_, i) => "W" + (i + 1)), { label: "Key lift progression" }) +
     '<div class="legend">' + series.map(s => "<span><i style='background:" + s.color + "'></i>" + esc(s.name) + "</span>").join("") + "</div></div>";
 
