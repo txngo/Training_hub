@@ -249,6 +249,20 @@ td.underplan{background:var(--bad-bg)}
 .mini.auto{color:var(--tide);font-style:italic;font-weight:600}
 .prchip{background:#D4A017;color:#fff;border-radius:999px;padding:1px 8px;font-size:10px;font-style:normal;letter-spacing:.05em;vertical-align:1px}
 #markDone.isdone{background:#1B7A43;color:#fff;border-color:#1B7A43}
+#restBar{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:16px;z-index:26;background:var(--hull);color:#fff;
+  border-radius:999px;padding:11px 18px;font:700 14px var(--sans);box-shadow:0 6px 18px rgba(10,18,25,.35);display:none;align-items:center;gap:10px}
+#restBar.on{display:inline-flex} #restBar.done{background:#1B7A43}
+#restBar button{background:#ffffff2e;border:0;color:#fff;border-radius:999px;padding:3px 10px;font:600 12px var(--sans);cursor:pointer}
+#toast{position:fixed;bottom:calc(72px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);z-index:27;background:#22313F;color:#fff;
+  border-radius:12px;padding:11px 16px;font:600 13px var(--sans);box-shadow:0 6px 18px rgba(10,18,25,.4);display:none;align-items:center;gap:12px;max-width:92vw}
+#toast.on{display:inline-flex}
+#toast button{background:#D4A017;border:0;color:#fff;border-radius:999px;padding:4px 12px;font:700 12px var(--sans);cursor:pointer}
+.exblock.collapsed>header{cursor:pointer}
+.chip.donec{background:#DFF0E3;color:#1B7A43;border:0;font-weight:700}
+.restbtn{background:#EAF3FB;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font:600 12.5px var(--sans);cursor:pointer;color:var(--ink)}
+.ergchip{display:inline-flex;align-items:center;gap:8px;background:#F4FAF6;border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:4px 6px 4px 0;font-size:13px}
+.ergchip input[type=checkbox]{width:17px;height:17px;accent-color:#1B7A43}
+.ergchip input[type=number]{width:58px;border:1px solid var(--line);border-radius:8px;padding:4px 6px;font:inherit}
 @media (max-width:760px){
   .sethead{display:none}
   .setrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-bottom:1px dashed var(--line);padding:9px 0}
@@ -902,7 +916,7 @@ function sectionLetter(s) { return s.indexOf("A") === 8 ? "A" : (s.indexOf("B") 
 /* BACKUP is Viyaan's saved data (exported 2026-07-06). A fresh browser or
    device starts from this snapshot instead of a blank slate. Data already
    saved in this browser ALWAYS wins over the snapshot. */
-const BACKUP = {"v":1,"zone":{"rest":"45","max":"202","twoK":"7:15.4"},"energy":{"p7":["841","","",""],"s60":["434","","",""],"r20":["192","","",""]},"trunk":[{"t1":"","t2":""},{"t1":"","t2":""},{"t1":"","t2":""},{"t1":"","t2":""}],"testSched":[["","","",""],["","","",""],["","","",""],["","","",""],["","","",""],["","","",""],["","","",""]],"testZones":[["","","",""],["","","",""],["","","",""],["","","",""],["","","",""]],"checkins":[["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""]],"schedDone":{"1-A":true,"1-B":false,"1-C":false,"2-A":false,"2-B":false,"2-C":false,"3-A":false,"3-B":false,"3-C":false,"4-A":false,"4-B":false,"4-C":false,"5-A":false,"5-B":false,"5-C":false,"6-A":false,"6-B":false,"6-C":false,"7-A":false,"7-B":false,"7-C":false,"8-A":false,"8-B":false,"8-C":false,"9-A":false,"9-B":false,"9-C":false,"10-A":false,"10-B":false,"10-C":false,"11-A":false,"11-B":false,"11-C":false,"12-A":false,"12-B":false,"12-C":false},"schedNotes":{"1-A":"","1-B":"","1-C":"","2-A":"","2-B":"","2-C":"","3-A":"","3-B":"","3-C":"","4-A":"","4-B":"","4-C":"","5-A":"","5-B":"","5-C":"","6-A":"","6-B":"","6-C":"","7-A":"","7-B":"","7-C":"","8-A":"","8-B":"","8-C":"","9-A":"","9-B":"","9-C":"","10-A":"","10-B":"","10-C":"","11-A":"","11-B":"","11-C":"","12-A":"","12-B":"","12-C":""},"log":[{"id":1,"date":"2026-07-06","session":"A","week":1,"exercise":"A: World's Greatest Stretch","set":1,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":3,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Rotator Cuff Primer","set":1,"reps":"10","weight":"4","rpe":"","rir":"","notes":""},{"id":4,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Copenhagen Iso Hold","set":1,"reps":"1","weight":"","rpe":"","rir":"","notes":""},{"id":5,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Copenhagen Iso Hold","set":2,"reps":"1","weight":"","rpe":"","rir":"","notes":""},{"id":6,"date":"2026-07-06","session":"A","week":1,"exercise":"A: 3D Calf Raises","set":1,"reps":"8","weight":"","rpe":"","rir":"","notes":""},{"id":7,"date":"2026-07-06","session":"A","week":1,"exercise":"A: High Pull","set":1,"reps":"3","weight":"40","rpe":"","rir":"","notes":""},{"id":8,"date":"2026-07-06","session":"A","week":1,"exercise":"A: High Pull","set":2,"reps":"3","weight":"40","rpe":"","rir":"","notes":""},{"id":9,"date":"2026-07-06","session":"A","week":1,"exercise":"A: High Pull","set":3,"reps":"3","weight":"40","rpe":"","rir":"","notes":""},{"id":10,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Squat","set":1,"reps":"6","weight":"50","rpe":"","rir":"","notes":""},{"id":11,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Squat","set":2,"reps":"6","weight":"70","rpe":"","rir":"","notes":""},{"id":12,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Squat","set":3,"reps":"6","weight":"70","rpe":"","rir":"","notes":""},{"id":13,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Squat","set":4,"reps":"6","weight":"70","rpe":"","rir":"","notes":""},{"id":14,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Reverse Lunge","set":1,"reps":"6","weight":"14","rpe":"","rir":"","notes":""},{"id":15,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Reverse Lunge","set":2,"reps":"6","weight":"14","rpe":"","rir":"","notes":""},{"id":17,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Reverse Lunge","set":3,"reps":"6","weight":"14","rpe":"","rir":"","notes":""},{"id":18,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Half Kneeling DB Press","set":1,"reps":"6","weight":"12","rpe":"","rir":"","notes":""},{"id":19,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Half Kneeling DB Press","set":2,"reps":"6","weight":"12","rpe":"","rir":"","notes":""},{"id":20,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Half Kneeling DB Press","set":3,"reps":"6","weight":"12","rpe":"","rir":"","notes":""},{"id":21,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Single Leg Hip Thrust","set":1,"reps":"6","weight":"70","rpe":"","rir":"","notes":""},{"id":22,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Single Leg Hip Thrust","set":2,"reps":"6","weight":"70","rpe":"","rir":"","notes":""},{"id":23,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Single Leg Hip Thrust","set":3,"reps":"6","weight":"70","rpe":"","rir":"","notes":""},{"id":25,"date":"2026-07-06","session":"A","week":1,"exercise":"A: V-Ups","set":1,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":26,"date":"2026-07-06","session":"A","week":1,"exercise":"A: V-Ups","set":2,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":27,"date":"2026-07-06","session":"A","week":1,"exercise":"A: V-Ups","set":3,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":28,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Russian Twists","set":1,"reps":"8","weight":"18","rpe":"","rir":"","notes":""},{"id":29,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Russian Twists","set":2,"reps":"8","weight":"16","rpe":"","rir":"","notes":""},{"id":30,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Russian Twists","set":3,"reps":"8","weight":"16","rpe":"","rir":"","notes":""},{"id":31,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Extension","set":1,"reps":"","weight":"","rpe":"","rir":"","notes":""},{"id":32,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Extension","set":2,"reps":"","weight":"","rpe":"","rir":"","notes":""},{"id":33,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Extension","set":3,"reps":"","weight":"","rpe":"","rir":"","notes":""}],"plan":{"A|3D Calf Raises":{"2":0},"A|World's Greatest Stretch":{"2":0},"A|Rotator Cuff Primer":{"2":4},"A|Copenhagen Iso Hold":{"2":35},"A|High Pull":{"1":40,"2":45},"A|Back Squat":{"1":70,"2":75},"A|Reverse Lunge":{"1":14,"2":16},"A|Half Kneeling DB Press":{"1":10,"2":12},"A|Single Leg Hip Thrust":{"1":22,"2":80},"A|V-Ups":{"2":0},"A|Russian Twists":{"1":15,"2":15},"A|Back Extension":{"1":5,"2":5},"A|Front Rack Mobility  (clean prep)":{},"A|Tall Clean  (clean prep)":{},"B|Soleus Split Squat Hold":{"1":16,"2":16},"B|Deep Squat Hold":{"2":20},"B|Hip Int/Ext Rotation":{"2":0},"B|Bent Over Y-T-I":{"2":4},"B|Box Jump":{"2":0},"B|Romanian Deadlift":{"1":"60","2":100},"B|3-Point DB Row":{"1":34,"2":34},"B|Dynamic Step Up":{"1":"55","2":60},"B|Plank Pull-Through":{"2":0},"B|Wall Deadbug":{},"B|Back Extension":{},"B|Clean Deadlift  (clean prep)":{},"B|Hang High Pull  (clean prep)":{},"C|Stick Warmup":{},"C|OH Hurdle Step Over":{},"C|Seated Leg Lift":{},"C|SL DB Calf Raise":{"1":"24"},"C|Trap Bar Deadlift":{"1":"115"},"C|Trap Bar Jump":{"1":60},"C|Pull-Ups":{"1":"0"},"C|Band Face Pull":{"1":"14"},"C|Bulgarian Split Squat":{"1":10},"C|Barbell Bench Press":{"1":"55"},"C|Dive Bomb Push-Ups":{},"C|Hanging Knee Tucks":{},"C|Side Plank + Knee Drive":{},"C|Back Extension":{"1":5},"C|Hang Muscle Clean  (clean prep)":{},"C|Front Squat (light)  (clean prep)":{}},"act":{"A|3D Calf Raises":{},"A|World's Greatest Stretch":{},"A|Rotator Cuff Primer":{},"A|Copenhagen Iso Hold":{},"A|High Pull":{},"A|Back Squat":{},"A|Reverse Lunge":{},"A|Half Kneeling DB Press":{},"A|Single Leg Hip Thrust":{},"A|V-Ups":{},"A|Russian Twists":{},"A|Back Extension":{},"A|Front Rack Mobility  (clean prep)":{},"A|Tall Clean  (clean prep)":{},"B|Soleus Split Squat Hold":{},"B|Deep Squat Hold":{},"B|Hip Int/Ext Rotation":{},"B|Bent Over Y-T-I":{},"B|Box Jump":{},"B|Romanian Deadlift":{},"B|3-Point DB Row":{},"B|Dynamic Step Up":{},"B|Plank Pull-Through":{},"B|Wall Deadbug":{},"B|Back Extension":{},"B|Clean Deadlift  (clean prep)":{},"B|Hang High Pull  (clean prep)":{},"C|Stick Warmup":{},"C|OH Hurdle Step Over":{},"C|Seated Leg Lift":{},"C|SL DB Calf Raise":{},"C|Trap Bar Deadlift":{},"C|Trap Bar Jump":{},"C|Pull-Ups":{},"C|Band Face Pull":{},"C|Bulgarian Split Squat":{},"C|Barbell Bench Press":{},"C|Dive Bomb Push-Ups":{},"C|Hanging Knee Tucks":{},"C|Side Plank + Knee Drive":{},"C|Back Extension":{},"C|Hang Muscle Clean  (clean prep)":{},"C|Front Squat (light)  (clean prep)":{}},"customEx":[],"athlete":{"height":"186"},"weightLog":[{"date":"2026-07-02","kg":"89.9"}],"nextId":34};
+const BACKUP = {"v":1,"zone":{"rest":"45","max":"202","twoK":"7:15.4"},"energy":{"p7":["841","","",""],"s60":["434","","",""],"r20":["192","","",""]},"trunk":[{"t1":"","t2":""},{"t1":"","t2":""},{"t1":"","t2":""},{"t1":"","t2":""}],"testSched":[["","","",""],["","","",""],["","","",""],["","","",""],["","","",""],["","","",""],["","","",""]],"testZones":[["","","",""],["","","",""],["","","",""],["","","",""],["","","",""]],"checkins":[["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""]],"schedDone":{"1-A":true,"1-B":false,"1-C":false,"2-A":false,"2-B":false,"2-C":false,"3-A":false,"3-B":false,"3-C":false,"4-A":false,"4-B":false,"4-C":false,"5-A":false,"5-B":false,"5-C":false,"6-A":false,"6-B":false,"6-C":false,"7-A":false,"7-B":false,"7-C":false,"8-A":false,"8-B":false,"8-C":false,"9-A":false,"9-B":false,"9-C":false,"10-A":false,"10-B":false,"10-C":false,"11-A":false,"11-B":false,"11-C":false,"12-A":false,"12-B":false,"12-C":false},"schedNotes":{"1-A":"","1-B":"","1-C":"","2-A":"","2-B":"","2-C":"","3-A":"","3-B":"","3-C":"","4-A":"","4-B":"","4-C":"","5-A":"","5-B":"","5-C":"","6-A":"","6-B":"","6-C":"","7-A":"","7-B":"","7-C":"","8-A":"","8-B":"","8-C":"","9-A":"","9-B":"","9-C":"","10-A":"","10-B":"","10-C":"","11-A":"","11-B":"","11-C":"","12-A":"","12-B":"","12-C":""},"log":[{"id":1,"date":"2026-07-06","session":"A","week":1,"exercise":"A: World's Greatest Stretch","set":1,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":3,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Rotator Cuff Primer","set":1,"reps":"10","weight":"4","rpe":"","rir":"","notes":""},{"id":4,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Copenhagen Iso Hold","set":1,"reps":"1","weight":"","rpe":"","rir":"","notes":""},{"id":5,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Copenhagen Iso Hold","set":2,"reps":"1","weight":"","rpe":"","rir":"","notes":""},{"id":6,"date":"2026-07-06","session":"A","week":1,"exercise":"A: 3D Calf Raises","set":1,"reps":"8","weight":"","rpe":"","rir":"","notes":""},{"id":7,"date":"2026-07-06","session":"A","week":1,"exercise":"A: High Pull","set":1,"reps":"3","weight":"40","rpe":"","rir":"","notes":""},{"id":8,"date":"2026-07-06","session":"A","week":1,"exercise":"A: High Pull","set":2,"reps":"3","weight":"40","rpe":"","rir":"","notes":""},{"id":9,"date":"2026-07-06","session":"A","week":1,"exercise":"A: High Pull","set":3,"reps":"3","weight":"40","rpe":"","rir":"","notes":""},{"id":10,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Squat","set":1,"reps":"6","weight":"50","rpe":"","rir":"","notes":""},{"id":11,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Squat","set":2,"reps":"6","weight":"70","rpe":"","rir":"","notes":""},{"id":12,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Squat","set":3,"reps":"6","weight":"70","rpe":"","rir":"","notes":""},{"id":13,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Squat","set":4,"reps":"6","weight":"70","rpe":"","rir":"","notes":""},{"id":14,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Reverse Lunge","set":1,"reps":"6","weight":"14","rpe":"","rir":"","notes":""},{"id":15,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Reverse Lunge","set":2,"reps":"6","weight":"14","rpe":"","rir":"","notes":""},{"id":17,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Reverse Lunge","set":3,"reps":"6","weight":"14","rpe":"","rir":"","notes":""},{"id":18,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Half Kneeling DB Press","set":1,"reps":"6","weight":"12","rpe":"","rir":"","notes":""},{"id":19,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Half Kneeling DB Press","set":2,"reps":"6","weight":"12","rpe":"","rir":"","notes":""},{"id":20,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Half Kneeling DB Press","set":3,"reps":"6","weight":"12","rpe":"","rir":"","notes":""},{"id":21,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Hip Thrust","set":1,"reps":"6","weight":"70","rpe":"","rir":"","notes":""},{"id":22,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Hip Thrust","set":2,"reps":"6","weight":"70","rpe":"","rir":"","notes":""},{"id":23,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Hip Thrust","set":3,"reps":"6","weight":"70","rpe":"","rir":"","notes":""},{"id":25,"date":"2026-07-06","session":"A","week":1,"exercise":"A: V-Ups","set":1,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":26,"date":"2026-07-06","session":"A","week":1,"exercise":"A: V-Ups","set":2,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":27,"date":"2026-07-06","session":"A","week":1,"exercise":"A: V-Ups","set":3,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":28,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Russian Twists","set":1,"reps":"8","weight":"18","rpe":"","rir":"","notes":""},{"id":29,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Russian Twists","set":2,"reps":"8","weight":"16","rpe":"","rir":"","notes":""},{"id":30,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Russian Twists","set":3,"reps":"8","weight":"16","rpe":"","rir":"","notes":""},{"id":31,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Extension","set":1,"reps":"","weight":"","rpe":"","rir":"","notes":""},{"id":32,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Extension","set":2,"reps":"","weight":"","rpe":"","rir":"","notes":""},{"id":33,"date":"2026-07-06","session":"A","week":1,"exercise":"A: Back Extension","set":3,"reps":"","weight":"","rpe":"","rir":"","notes":""},{"id":34,"date":"2026-07-08","session":"B","week":1,"exercise":"B: 3-Point DB Row","set":1,"reps":"6","weight":"34","rpe":"","rir":"","notes":""},{"id":35,"date":"2026-07-08","session":"B","week":1,"exercise":"B: 3-Point DB Row","set":2,"reps":"6","weight":"34","rpe":"","rir":"","notes":""},{"id":36,"date":"2026-07-08","session":"B","week":1,"exercise":"B: 3-Point DB Row","set":3,"reps":"6","weight":"34","rpe":"","rir":"","notes":""},{"id":37,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Box Jump","set":1,"reps":"3","weight":"","rpe":"","rir":"","notes":""},{"id":38,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Box Jump","set":2,"reps":"3","weight":"","rpe":"","rir":"","notes":""},{"id":39,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Box Jump","set":3,"reps":"3","weight":"","rpe":"","rir":"","notes":""},{"id":40,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Kickstand RDL","set":1,"reps":"6","weight":"60","rpe":"","rir":"","notes":""},{"id":41,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Kickstand RDL","set":2,"reps":"6","weight":"60","rpe":"","rir":"","notes":""},{"id":42,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Kickstand RDL","set":3,"reps":"6","weight":"60","rpe":"","rir":"","notes":""},{"id":49,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Kickstand RDL","set":6,"reps":"6","weight":"60","rpe":"","rir":"","notes":""},{"id":50,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Dynamic Step Up","set":1,"reps":"6","weight":"55","rpe":"","rir":"","notes":""},{"id":51,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Dynamic Step Up","set":2,"reps":"6","weight":"55","rpe":"","rir":"","notes":""},{"id":52,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Dynamic Step Up","set":3,"reps":"6","weight":"55","rpe":"","rir":"","notes":""},{"id":53,"date":"2026-07-08","session":"B","week":1,"exercise":"B: 3-Point DB Row","set":4,"reps":"6","weight":"34","rpe":"","rir":"","notes":""},{"id":54,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Wall Deadbug","set":1,"reps":"60","weight":"","rpe":"","rir":"","notes":""},{"id":55,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Wall Deadbug","set":2,"reps":"60","weight":"","rpe":"","rir":"","notes":""},{"id":56,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Wall Deadbug","set":3,"reps":"60","weight":"","rpe":"","rir":"","notes":""},{"id":57,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Plank Pull-Through","set":1,"reps":"20","weight":"5","rpe":"","rir":"","notes":""},{"id":58,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Plank Pull-Through","set":2,"reps":"20","weight":"5","rpe":"","rir":"","notes":""},{"id":59,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Plank Pull-Through","set":3,"reps":"20","weight":"5","rpe":"","rir":"","notes":""},{"id":60,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Back Extension","set":1,"reps":"10","weight":"5","rpe":"","rir":"","notes":""},{"id":61,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Back Extension","set":2,"reps":"12","weight":"10","rpe":"","rir":"","notes":""},{"id":62,"date":"2026-07-08","session":"B","week":1,"exercise":"B: Back Extension","set":3,"reps":"12","weight":"10","rpe":"","rir":"","notes":""},{"id":63,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Trap Bar Deadlift","set":1,"reps":"6","weight":"125","rpe":"","rir":"","notes":""},{"id":64,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Trap Bar Deadlift","set":2,"reps":"6","weight":"125","rpe":"","rir":"","notes":""},{"id":69,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Trap Bar Deadlift","set":3,"reps":"6","weight":"125","rpe":"","rir":"","notes":""},{"id":70,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Trap Bar Jump","set":1,"reps":"3","weight":"45","rpe":"","rir":"","notes":""},{"id":71,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Trap Bar Jump","set":2,"reps":"3","weight":"45","rpe":"","rir":"","notes":""},{"id":72,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Trap Bar Deadlift","set":4,"reps":"6","weight":"95","rpe":"","rir":"","notes":""},{"id":73,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Trap Bar Deadlift","set":5,"reps":"6","weight":"95","rpe":"","rir":"","notes":""},{"id":74,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Band Face Pull","set":1,"reps":"10","weight":"12.5","rpe":"","rir":"","notes":""},{"id":75,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Band Face Pull","set":2,"reps":"10","weight":"12.5","rpe":"","rir":"","notes":""},{"id":76,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Band Face Pull","set":3,"reps":"10","weight":"12.5","rpe":"","rir":"","notes":""},{"id":77,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Pull-Ups","set":1,"reps":"6","weight":"","rpe":"","rir":"","notes":""},{"id":78,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Pull-Ups","set":2,"reps":"6","weight":"","rpe":"","rir":"","notes":""},{"id":79,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Pull-Ups","set":3,"reps":"6","weight":"","rpe":"","rir":"","notes":""},{"id":80,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Bulgarian Split Squat","set":1,"reps":"6","weight":"0","rpe":"","rir":"","notes":""},{"id":81,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Bulgarian Split Squat","set":2,"reps":"6","weight":"0","rpe":"","rir":"","notes":""},{"id":82,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Bulgarian Split Squat","set":3,"reps":"6","weight":"0","rpe":"","rir":"","notes":""},{"id":83,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Barbell Bench Press","set":1,"reps":"6","weight":"50","rpe":"","rir":"","notes":""},{"id":84,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Barbell Bench Press","set":2,"reps":"6","weight":"50","rpe":"","rir":"","notes":""},{"id":85,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Barbell Bench Press","set":3,"reps":"6","weight":"50","rpe":"","rir":"","notes":""},{"id":86,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Hanging Knee Tucks","set":1,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":87,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Hanging Knee Tucks","set":2,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":88,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Hanging Knee Tucks","set":3,"reps":"7","weight":"","rpe":"","rir":"","notes":""},{"id":89,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Side Plank + Knee Drive","set":1,"reps":"30","weight":"","rpe":"","rir":"","notes":""},{"id":90,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Side Plank + Knee Drive","set":2,"reps":"30","weight":"","rpe":"","rir":"","notes":""},{"id":91,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Back Extension","set":1,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":92,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Back Extension","set":2,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":93,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Back Extension","set":3,"reps":"10","weight":"","rpe":"","rir":"","notes":""},{"id":94,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Dive Bomb Push-Ups","set":1,"reps":"0","weight":"","rpe":"","rir":"","notes":""},{"id":95,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Dive Bomb Push-Ups","set":2,"reps":"0","weight":"","rpe":"","rir":"","notes":""},{"id":96,"date":"2026-07-10","session":"C","week":1,"exercise":"C: Dive Bomb Push-Ups","set":3,"reps":"0","weight":"","rpe":"","rir":"","notes":""}],"plan":{"A|3D Calf Raises":{"2":0},"A|World's Greatest Stretch":{"2":0},"A|Rotator Cuff Primer":{"2":4},"A|Copenhagen Iso Hold":{"1":"30","2":35},"A|High Pull":{"1":40,"2":45},"A|Back Squat":{"1":70,"2":75},"A|Reverse Lunge":{"1":14,"2":16},"A|Half Kneeling DB Press":{"1":10,"2":"14"},"A|Hip Thrust":{"1":70,"2":80},"A|V-Ups":{"1":"10","2":"10"},"A|Russian Twists":{"1":15,"2":15},"A|Back Extension":{"1":"0","2":"10"},"A|Front Rack Mobility  (clean prep)":{},"A|Tall Clean  (clean prep)":{},"B|Soleus Split Squat Hold":{"1":16,"2":16},"B|Deep Squat Hold":{"1":"20","2":"30"},"B|Hip Int/Ext Rotation":{"1":"0","2":0},"B|Bent Over Y-T-I":{"1":"4","2":4},"B|Box Jump":{"2":0},"B|Kickstand RDL":{"1":"60","2":65},"B|3-Point DB Row":{"1":34,"2":"36"},"B|Dynamic Step Up":{"1":"55","2":60},"B|Plank Pull-Through":{"1":"5","2":0},"B|Wall Deadbug":{},"B|Back Extension":{"1":"0"},"B|Clean Deadlift  (clean prep)":{},"B|Hang High Pull  (clean prep)":{},"C|Stick Warmup":{"1":"0"},"C|OH Hurdle Step Over":{"1":"0"},"C|Seated Leg Lift":{"1":"0"},"C|SL DB Calf Raise":{"1":"24","2":"26"},"C|Trap Bar Deadlift":{"1":"115","2":"125"},"C|Trap Bar Jump":{"1":"45","2":"45"},"C|Pull-Ups":{"1":"0"},"C|Band Face Pull":{"1":"12.5","2":"14"},"C|Bulgarian Split Squat":{"1":"0"},"C|Barbell Bench Press":{"1":"55","2":"55"},"C|Dive Bomb Push-Ups":{},"C|Hanging Knee Tucks":{},"C|Side Plank + Knee Drive":{},"C|Back Extension":{"1":"0"},"C|Hang Muscle Clean  (clean prep)":{},"C|Front Squat (light)  (clean prep)":{}},"act":{"A|3D Calf Raises":{},"A|World's Greatest Stretch":{},"A|Rotator Cuff Primer":{},"A|Copenhagen Iso Hold":{"1":"30"},"A|High Pull":{},"A|Back Squat":{},"A|Reverse Lunge":{},"A|Half Kneeling DB Press":{},"A|Hip Thrust":{},"A|V-Ups":{"1":"10"},"A|Russian Twists":{"1":"15"},"A|Back Extension":{"1":"0","2":""},"A|Front Rack Mobility  (clean prep)":{},"A|Tall Clean  (clean prep)":{},"B|Soleus Split Squat Hold":{"1":"16"},"B|Deep Squat Hold":{"1":"20"},"B|Hip Int/Ext Rotation":{"1":"0"},"B|Bent Over Y-T-I":{"1":"4"},"B|Box Jump":{},"B|Kickstand RDL":{"2":""},"B|3-Point DB Row":{},"B|Dynamic Step Up":{},"B|Plank Pull-Through":{},"B|Wall Deadbug":{},"B|Back Extension":{"1":"0"},"B|Clean Deadlift  (clean prep)":{},"B|Hang High Pull  (clean prep)":{},"C|Stick Warmup":{"1":"0"},"C|OH Hurdle Step Over":{"1":"0"},"C|Seated Leg Lift":{"1":"0"},"C|SL DB Calf Raise":{"1":"24"},"C|Trap Bar Deadlift":{},"C|Trap Bar Jump":{},"C|Pull-Ups":{"1":"0"},"C|Band Face Pull":{},"C|Bulgarian Split Squat":{"1":"0"},"C|Barbell Bench Press":{},"C|Dive Bomb Push-Ups":{"1":"0"},"C|Hanging Knee Tucks":{"1":"0"},"C|Side Plank + Knee Drive":{"1":"0"},"C|Back Extension":{"1":"0"},"C|Hang Muscle Clean  (clean prep)":{},"C|Front Squat (light)  (clean prep)":{}},"customEx":[],"athlete":{"height":"186"},"weightLog":[{"date":"2026-07-02","kg":"89.9"},{"date":"2026-07-08","kg":"90.2"}],"nextId":97,"doneChecks":{"1|B|B: Soleus Split Squat Hold":[true,true],"1|B|B: Deep Squat Hold":[true],"1|B|B: Hip Int/Ext Rotation":[true],"1|B|B: Bent Over Y-T-I":[true,true],"1|C|C: OH Hurdle Step Over":[true],"1|C|C: Stick Warmup":[true],"1|C|C: Seated Leg Lift":[true],"1|C|C: SL DB Calf Raise":[true]}};
 /* Exercise renames applied to any previously-saved data, so history follows
    the programme changes (2026-07-06: normal barbell Hip Thrust @80kg replaces
    Single Leg Hip Thrust; Kickstand RDL replaces bilateral Romanian Deadlift).
@@ -977,6 +991,7 @@ let S = null;
     if (!S.nextId) S.nextId = 1 + S.log.reduce((m, e) => Math.max(m, e.id || 0), 0);
   }
   if (!S.doneChecks) S.doneChecks = {};
+  if (!S.ergLog) S.ergLog = {};
   /* Apply exercise renames to whatever state we ended up with, then persist. */
   migrateState(S);
   Store.save(S);
@@ -1197,6 +1212,102 @@ function lineChart(series, labels, opt) {
     sr.vals.forEach((v, i) => { if (v != null) s += '<circle cx="' + X(i) + '" cy="' + Y(v) + '" r="3.4" fill="' + sr.color + '"/>'; });
   });
   return s + "</svg>";
+}
+
+/* ---------- rest timer + toast (outside #view so re-renders don't kill them) ---------- */
+let restEnd = null, restInt = null;
+function ensureBar(id) {
+  if (!document.body) return null;
+  let el = document.getElementById(id);
+  if (!el) { el = document.createElement("div"); el.id = id; document.body.appendChild(el); }
+  return el;
+}
+function startRest(sec) {
+  restEnd = Date.now() + sec * 1000;
+  const bar = ensureBar("restBar"); if (!bar) return;
+  bar.classList.add("on"); bar.classList.remove("done");
+  if (!restInt) restInt = setInterval(tickRest, 250);
+  tickRest();
+}
+function tickRest() {
+  const bar = document.getElementById("restBar"); if (!bar || restEnd == null) return;
+  const left = Math.ceil((restEnd - Date.now()) / 1000);
+  if (left > 0) {
+    bar.innerHTML = "⏱ " + Math.floor(left / 60) + ":" + String(left % 60).padStart(2, "0") + ' <button id="restStop">stop</button>';
+  } else {
+    if (!bar.classList.contains("done") && navigator.vibrate) { try { navigator.vibrate([180, 90, 180]); } catch (e) {} }
+    bar.classList.add("done");
+    bar.innerHTML = '✓ Rest done — go <button id="restStop">✕</button>';
+    if (left < -15) stopRest();
+  }
+  const st = document.getElementById("restStop");
+  if (st) st.onclick = stopRest;
+}
+function stopRest() {
+  restEnd = null;
+  if (restInt) { clearInterval(restInt); restInt = null; }
+  const bar = document.getElementById("restBar"); if (bar) bar.classList.remove("on", "done");
+}
+let toastTO = null, lastDeleted = null;
+function toast(msg, actionLabel, action) {
+  const t = ensureBar("toast"); if (!t) return;
+  t.innerHTML = esc(msg) + (actionLabel ? ' <button id="toastAct">' + esc(actionLabel) + "</button>" : "");
+  t.classList.add("on");
+  const a = document.getElementById("toastAct");
+  if (a && action) a.onclick = () => { t.classList.remove("on"); action(); };
+  if (toastTO) clearTimeout(toastTO);
+  toastTO = setTimeout(() => t.classList.remove("on"), 6500);
+}
+const expandedEx = new Set();
+const PLATES = [25, 20, 15, 10, 5, 2.5, 1.25];
+function plateBreakdown(target, bar) {
+  const perSide = (target - bar) / 2;
+  if (!(target > 0) || perSide < 0) return null;
+  let rem = perSide; const used = [];
+  PLATES.forEach(p => { while (rem >= p - 1e-9) { used.push(p); rem -= p; } });
+  return { perSide, used, rem: Math.round(rem * 100) / 100 };
+}
+/* Next-week plan suggester: fills EMPTY plan cells for the week after the last
+   logged one. Main lifts (those with back-offs) = last week's actual + 2.5 kg;
+   accessories hold. Never overwrites a typed value. */
+function suggestNextPlans() {
+  let maxW = 0;
+  S.log.forEach(e => { const w = +e.week; if (w > maxW) maxW = w; });
+  const target = Math.min(12, maxW + 1);
+  if (target < 2) return { target, filled: 0 };
+  let filled = 0;
+  SEED.prog.forEach(r => {
+    if (r.load !== "Weighted (kg)") return;
+    const k = progKey(r);
+    if (!S.plan[k]) S.plan[k] = {};
+    const cur = S.plan[k][target];
+    if (cur !== "" && cur != null) return;
+    const base = num(effAct(k, target - 1).v);
+    if (base == null || !(base > 0)) return;
+    const sp = SETS_PLAN[orderNameFor(r)];
+    const inc = sp && sp.back ? 2.5 : 0;
+    S.plan[k][target] = base + inc; filled++;
+  });
+  if (filled) save();
+  return { target, filled };
+}
+function ergTick(cb) {
+  if (!S.ergLog) S.ergLog = {};
+  S.ergLog[cb.dataset.erg] = Object.assign({}, S.ergLog[cb.dataset.erg], { d: cb.checked });
+  save();
+}
+function ergKm(inp) {
+  if (!S.ergLog) S.ergLog = {};
+  S.ergLog[inp.dataset.ergkm] = Object.assign({}, S.ergLog[inp.dataset.ergkm], { km: inp.value });
+  save();
+}
+/* Weekly erg tracking (hybrid week: 4 easy + 1 steady + 1 hard) */
+const ERG_WEEK = [["Mon PM", "Easy UT2 ~10km"], ["Tue AM", "HARD erg ~14km"], ["Wed PM", "Easy UT2 ~12km"],
+  ["Thu AM", "Steady UT1 ~15km"], ["Fri PM", "Flush ~7km (opt)"], ["Sat AM", "Long UT2 ~18-20km"]];
+function currentWeekNo() {
+  const t = todayISO();
+  const nxt = SEED.schedule.find(x => x.date >= t);
+  return nxt ? nxt.week : 12;
 }
 
 /* ---------- navigation ---------- */
@@ -1529,6 +1640,8 @@ function vLog(q) {
     "</select></div>" +
     '<div><label class="f">Date for new sets</label><input type="date" id="logDate" value="' + esc((sched && sched.date) || todayISO()) + '"></div>' +
     '<div><span class="chip ghost">Session ' + logSel.session + "</span> " + phaseChip(logSel.week) + "</div>" +
+    '<div><label class="f">Rest timer</label><div><button class="restbtn" data-rest="90">1:30</button> <button class="restbtn" data-rest="150">2:30</button> <button class="restbtn" data-rest="210">3:30</button></div></div>' +
+    '<div><label class="f">Plate calc — target kg</label><div style="display:flex;gap:6px;align-items:center"><input type="number" id="plateIn" step="any" placeholder="92.5" style="width:86px"><select id="plateBar" style="width:auto"><option value="20">20kg bar</option><option value="25">25kg trap</option><option value="15">15kg bar</option></select></div><div class="cellsub" id="plateOut" style="min-height:16px"></div></div>' +
     '<div style="margin-left:auto"><button class="btn subtle' + ((S.schedDone || {})[logSel.week + "-" + logSel.session] ? " isdone" : "") + '" id="markDone">' + ((S.schedDone || {})[logSel.week + "-" + logSel.session] ? "✓ Session done" : "Mark session done") + "</button></div>" +
     "</div>";
 
@@ -1542,8 +1655,28 @@ function vLog(q) {
     const planned = pr && S.plan[progKey(pr)] ? S.plan[progKey(pr)][logSel.week] : undefined;
     const isTick = plan.t === "warm" || plan.t === "clean";
     const blockCls = plan.t === "warm" ? " warmb" : plan.t === "clean" ? " cleanb" : "";
+    /* collapse blocks whose planned work is fully logged/ticked (tap to expand) */
+    const tkeyC = logSel.week + "|" + logSel.session + "|" + exName;
+    let complete;
+    if (isTick) {
+      const tk = (S.doneChecks && S.doneChecks[tkeyC]) || [];
+      complete = plan.n > 0 && Array.from({ length: plan.n }, (_, i) => !!tk[i]).every(Boolean);
+    } else {
+      const totalC = plan.n + (plan.back || 0);
+      complete = true;
+      for (let i = 1; i <= totalC; i++) {
+        const e = entries.find(x => x.set === i);
+        if (!e || ((e.reps == null || e.reps === "") && (e.weight == null || e.weight === ""))) { complete = false; break; }
+      }
+    }
+    if (complete && !expandedEx.has(tkeyC)) {
+      h += '<div class="exblock collapsed' + blockCls + '"><header data-expandex="' + esc(tkeyC) + '"><div><b>' + esc(displayEx(exName)) + '</b> <span class="chip donec">✓ done</span></div>' +
+        '<div class="meta"><span class="hint">' + (isTick ? plan.n + " ticked" : entries.length + " sets logged") + " — tap to expand</span></div></header></div>";
+      return;
+    }
     const typeChip = plan.t === "warm" ? ' <span class="chip warmc">warm-up</span>' : plan.t === "clean" ? ' <span class="chip cleanc">clean prep</span>' : "";
     h += '<div class="exblock' + blockCls + '"><header><div><b>' + esc(displayEx(exName)) + "</b>" + typeChip +
+      (complete ? ' <button class="iconb" data-collapseex="' + esc(tkeyC) + '" title="Collapse" aria-label="Collapse">▾</button>' : "") +
       (pr && !isTick ? ' <span class="chip ghost">' + esc(pr.load) + "</span>" : "") +
       (plan.back ? ' <span class="chip backc">+' + plan.back + " back-off @ " + Math.round(BACKOFF_PCT * 100) + "%</span>" : "") + "</div>" +
       '<div class="meta">' + plan.n + " × " + esc(plan.r) +
@@ -1678,8 +1811,23 @@ function vLog(q) {
         arr[i] = cb.checked; save();
       }));
       root.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", () => {
+        const gone = S.log.find(e => e.id === +b.dataset.del);
         S.log = S.log.filter(e => e.id !== +b.dataset.del); save(); render("log");
+        if (gone) { lastDeleted = gone; toast("Set deleted", "Undo", () => { S.log.push(lastDeleted); save(); render("log"); }); }
       }));
+      root.querySelectorAll("[data-rest]").forEach(b => b.addEventListener("click", () => startRest(+b.dataset.rest)));
+      root.querySelectorAll("[data-expandex]").forEach(hd => hd.addEventListener("click", () => { expandedEx.add(hd.dataset.expandex); render("log"); }));
+      root.querySelectorAll("[data-collapseex]").forEach(b => b.addEventListener("click", ev => { ev.stopPropagation(); expandedEx.delete(b.dataset.collapseex); render("log"); }));
+      const pIn = root.querySelector("#plateIn"), pBar = root.querySelector("#plateBar"), pOut = root.querySelector("#plateOut");
+      function plateGo() {
+        if (!pIn || !pOut) return;
+        const t = parseFloat(pIn.value);
+        if (!t) { pOut.textContent = ""; return; }
+        const r = plateBreakdown(t, +pBar.value);
+        pOut.textContent = r == null ? "below bar weight" :
+          (r.used.length === 0 && r.rem === 0 ? "empty bar" : r.used.join(" + ") + " / side" + (r.rem > 0 ? " (+" + r.rem + " left)" : ""));
+      }
+      if (pIn) { pIn.addEventListener("input", plateGo); pBar.addEventListener("change", plateGo); }
       root.querySelector("#foAdd").addEventListener("click", () => {
         S.log.push({
           id: S.nextId++, date: root.querySelector("#foDate").value || todayISO(),
@@ -1776,6 +1924,8 @@ function download(name, content, mime) {
 function vProgression() {
   let h = vhead("Log & Track", "Progression Tracker — planned vs actual, by session",
     "Act fills itself from your Workout Log — the top weight you logged that week appears automatically (teal italics). Type in a cell to override; clear it to revert to auto. Plan comes from the Overload Strategy page. Green = met/beat plan · red = under · PR flags automatically.");
+  h += '<div class="card"><div class="toolrow" style="margin-bottom:0"><div><button class="btn" id="suggestPlans">Suggest next week&#39;s plans</button></div>' +
+    '<div class="cellsub" style="align-self:center">Fills <b>empty</b> Plan cells for the next unlogged week: main lifts = last week&#39;s actual + 2.5 kg · accessories hold. Never overwrites anything you typed.</div></div></div>';
   h += '<div class="card"><h2>Load types &amp; colour key</h2><div class="twrap"><table><tbody>' +
     DATA.startHere.loadKey.map(r => "<tr><td style='white-space:nowrap'><b>" + esc(r[0]) + "</b></td><td>" + esc(r[1]) + "</td></tr>").join("") + "</tbody></table></div></div>";
 
@@ -1805,6 +1955,12 @@ function vProgression() {
   return {
     html: h,
     bind(root) {
+      const sg = root.querySelector("#suggestPlans");
+      if (sg) sg.addEventListener("click", () => {
+        const r = suggestNextPlans();
+        toast(r.filled ? "Filled " + r.filled + " Plan cells for Week " + r.target : "Nothing to fill for Week " + r.target + " — cells already set or no data last week");
+        render("progression");
+      });
       root.querySelectorAll("[data-pv]").forEach(inp => inp.addEventListener("input", () => {
         const p = JSON.parse(inp.dataset.pv);
         if (!S[p[0]][p[1]]) S[p[0]][p[1]] = {};
@@ -1859,6 +2015,30 @@ function vDashboard() {
       ? "No backup exported yet — your data lives only in this browser. Grab one from the <a href=\"#/data\">Data page</a>."
       : "Last backup was " + bDays + " days ago — worth exporting a fresh one from the <a href=\"#/data\">Data page</a>.") + "</div>";
   }
+  /* ---- this week's ergs (hybrid week) + weekly summary ---- */
+  const cw = currentWeekNo();
+  const ergTot = ERG_WEEK.reduce((a, _, i) => { const r = (S.ergLog || {})[cw + "|" + i]; return a + (r && r.km ? (parseFloat(r.km) || 0) : 0); }, 0);
+  h += '<div class="card"><h2>This week&#39;s ergs — Week ' + cw + ' <span class="chip ghost">target 70–80 km</span> <span class="chip ' + (ergTot >= 70 ? "donec" : "ghost") + '">' + (Math.round(ergTot * 10) / 10) + " km</span></h2><div>" +
+    ERG_WEEK.map((sl, i) => {
+      const r = (S.ergLog || {})[cw + "|" + i] || {};
+      return '<label class="ergchip"><input type="checkbox" onchange="ergTick(this)" data-erg="' + cw + "|" + i + '"' + (r.d ? " checked" : "") + "><span><b>" + sl[0] + "</b> · " + sl[1] + '</span><input type="number" step="any" placeholder="km" oninput="ergKm(this)" data-ergkm="' + cw + "|" + i + '" value="' + (r.km == null ? "" : r.km) + '"></label>';
+    }).join("") + "</div></div>";
+  /* weekly summary */
+  (function () {
+    const wkEntries = S.log.filter(e => +e.week === cw);
+    const wkVol = wkEntries.reduce((a, e) => { const v = entryVolume(e); return a + (v || 0); }, 0);
+    const scDone = ["A", "B", "C"].filter(x => (S.schedDone || {})[cw + "-" + x]).length;
+    const prEx = {};
+    wkEntries.forEach(e => {
+      const w = num(e.weight); if (w == null || !(w > 0)) return;
+      let prev = 0;
+      S.log.forEach(x => { if (+x.week < cw && x.exercise === e.exercise) { const xw = num(x.weight); if (xw != null && xw > prev) prev = xw; } });
+      if (prev > 0 && w > prev) prEx[e.exercise] = Math.max(prEx[e.exercise] || 0, w);
+    });
+    const prList = Object.keys(prEx).map(k2 => displayEx(k2) + " " + fmt(prEx[k2]) + "kg");
+    h += '<div class="card"><h2>Week ' + cw + ' summary</h2><div class="cellsub">S&amp;C sessions done: <b>' + scDone + "/3</b> · Sets logged: <b>" + wkEntries.length + "</b> · Lifting volume: <b>" + fmt(wkVol, 0) + " kg</b> · Erg: <b>" + (Math.round(ergTot * 10) / 10) + " km</b>" +
+      (prList.length ? " · PRs: <b>" + esc(prList.join(", ")) + "</b> 🎉" : "") + "</div></div>";
+  })();
   h += '<div class="kpis">' +
     '<div class="kpi"><div class="l">Total volume</div><div class="v">' + fmt(Math.round(totalVol), 0) + '</div><div class="s">kg lifted (reps × weight)</div></div>' +
     '<div class="kpi"><div class="l">Sets logged</div><div class="v">' + S.log.length + '</div><div class="s">across all sessions</div></div>' +
