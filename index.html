@@ -990,12 +990,19 @@ function backoffSuggest(exName, week, entries) {
 let S = null;
 (function initState() {
   const loaded = Store.load();
-  /* No saved data → start from the embedded backup snapshot. Saved data wins,
-     UNLESS it's an empty shell (zero logged sets) while the snapshot carries
-     real training history — e.g. a stale save left behind by a sandboxed
-     preview, or a browser that once opened an early empty build. */
-  const usable = loaded && loaded.v === 1 &&
-    !((!loaded.log || !loaded.log.length) && BACKUP.log && BACKUP.log.length);
+  /* Saved data normally wins over the embedded snapshot. Two exceptions, both
+     meaning this browser's copy lags the training history the snapshot
+     carries: (a) an empty shell — zero logged sets — left by a preview or an
+     early build; (b) a stale fork — e.g. a laptop last opened in week 1 while
+     the phone (the logging device) moved on, judged by last logged date.
+     In both cases the snapshot is adopted and the displaced copy is parked
+     under a side key, never destroyed. */
+  function lastLogDate(st) { let d = ""; ((st && st.log) || []).forEach(e => { if (e.date && e.date > d) d = e.date; }); return d; }
+  const hasSnap = !!(BACKUP.log && BACKUP.log.length);
+  const shell = loaded && loaded.v === 1 && (!loaded.log || !loaded.log.length);
+  const stale = loaded && loaded.v === 1 && !shell && lastLogDate(BACKUP) > lastLogDate(loaded);
+  const usable = loaded && loaded.v === 1 && !(hasSnap && (shell || stale));
+  if (loaded && !usable) { try { window.localStorage.setItem(STORE_KEY + "-displaced", JSON.stringify(loaded)); } catch (e) {} }
   S = usable ? loaded : seededState();
   if (usable) {
     // ensure any new seed keys exist after updates
