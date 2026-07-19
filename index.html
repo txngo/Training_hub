@@ -990,9 +990,14 @@ function backoffSuggest(exName, week, entries) {
 let S = null;
 (function initState() {
   const loaded = Store.load();
-  /* No saved data → start from the embedded backup snapshot. Saved data wins. */
-  S = loaded && loaded.v === 1 ? loaded : seededState();
-  if (loaded && loaded.v === 1) {
+  /* No saved data → start from the embedded backup snapshot. Saved data wins,
+     UNLESS it's an empty shell (zero logged sets) while the snapshot carries
+     real training history — e.g. a stale save left behind by a sandboxed
+     preview, or a browser that once opened an early empty build. */
+  const usable = loaded && loaded.v === 1 &&
+    !((!loaded.log || !loaded.log.length) && BACKUP.log && BACKUP.log.length);
+  S = usable ? loaded : seededState();
+  if (usable) {
     // ensure any new seed keys exist after updates
     const base = freshState();
     ["zone","energy"].forEach(k => { if (!S[k]) S[k] = base[k]; });
