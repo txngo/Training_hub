@@ -164,7 +164,7 @@ input[type=text],input[type=number],input[type=date],select,textarea{
   font:inherit;color:var(--ink);background:#fff;border:1px solid #C4CfD6;border-radius:var(--r-sm);padding:7px 9px;width:100%}
 input[type=number]{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
 input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--tide);outline-offset:1px;border-color:var(--tide)}
-input.mini{width:74px;padding:5px 7px;font-size:13px}
+input.mini{width:86px;padding:5px 8px;font-size:13px}
 input.blue{background:#EDF6FB;border-color:#9CC4D8}
 label.f{display:block;font-size:12px;font-weight:650;color:var(--ink-2);margin-bottom:4px;letter-spacing:.03em}
 .btn{display:inline-flex;align-items:center;gap:7px;background:var(--tide);color:var(--tide-ink);border:0;border-radius:var(--r-sm);
@@ -206,7 +206,7 @@ input[type=checkbox]{width:18px;height:18px;accent-color:var(--tide);cursor:poin
 /* progression grid coloring */
 td.metplan{background:var(--good-bg)}
 td.underplan{background:var(--bad-bg)}
-.progtable input.mini{width:62px}
+.progtable input.mini{width:78px}
 .progtable td{padding:5px 6px}
 .progtable th{padding:7px 6px}
 
@@ -227,16 +227,18 @@ td.underplan{background:var(--bad-bg)}
 .exblock>header b{font-size:14px}
 .exblock>header .meta{font-size:12px;color:var(--ink-3)}
 .exblock .sets{padding:8px 14px 12px}
-.setrow{display:grid;grid-template-columns:44px 84px 96px 74px 74px 1fr 34px;gap:8px;align-items:center;padding:4px 0}
+.setrow{display:grid;grid-template-columns:42px 94px 112px 78px 78px 1fr 34px;gap:8px;align-items:center;padding:4px 0}
 .setrow .setn{font-family:var(--mono);color:var(--ink-3);font-size:13px}
 .setrow .vol{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;color:var(--ink-2);text-align:right;padding-right:4px}
-.sethead{display:grid;grid-template-columns:44px 84px 96px 74px 74px 1fr 34px;gap:8px;font-size:10.5px;letter-spacing:.1em;
+.sethead{display:grid;grid-template-columns:42px 94px 112px 78px 78px 1fr 34px;gap:8px;font-size:10.5px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--ink-3);font-weight:700;padding:6px 0 2px}
 .setrow.work{background:#EAF3FB;border-radius:9px;padding:5px 8px;margin:2px 0}
 .setrow.back{background:#FDEFDF;border-radius:9px;padding:5px 8px;margin:2px 0}
 .setrow.back .setn{color:#A9660B;font-weight:700}
 .setrow.extra{background:#F4F6F8;border-radius:9px;padding:5px 8px;margin:2px 0}
-.sets.norpe .setrow,.sets.norpe .sethead{grid-template-columns:44px 92px 104px 1fr 34px}
+.sets.norpe .setrow,.sets.norpe .sethead{grid-template-columns:42px 104px 126px 1fr 34px}
+/* inputs fill their grid cell rather than sitting at a fixed width, so nothing clips */
+.setrow input[data-f]{width:100%;min-width:0}
 .sets.norpe .rpef{display:none}
 .amrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
 .ambtn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font:inherit;font-size:13px;cursor:pointer}
@@ -271,15 +273,15 @@ td.underplan{background:var(--bad-bg)}
 .restbtn{background:#EAF3FB;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font:600 12.5px var(--sans);cursor:pointer;color:var(--ink)}
 .ergchip{display:inline-flex;align-items:center;gap:8px;background:#F4FAF6;border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:4px 6px 4px 0;font-size:13px}
 .ergchip input[type=checkbox]{width:17px;height:17px;accent-color:#1B7A43}
-.ergchip input[type=number]{width:58px;border:1px solid var(--line);border-radius:8px;padding:4px 6px;font:inherit}
+.ergchip input[type=number]{width:72px;border:1px solid var(--line);border-radius:8px;padding:4px 6px;font:inherit}
 @media (max-width:760px){
   .sethead{display:none}
   .setrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-bottom:1px dashed var(--line);padding:9px 0}
   .setrow:last-of-type{border-bottom:0}
   .setrow .setn{width:28px}
-  .setrow input[data-f=reps]{width:76px}
-  .setrow input[data-f=weight]{width:90px}
-  .setrow input[data-f=rpe],.setrow input[data-f=rir]{width:64px}
+  .setrow input[data-f=reps]{width:88px}
+  .setrow input[data-f=weight]{width:110px}
+  .setrow input[data-f=rpe],.setrow input[data-f=rir]{width:74px}
   .setrow input[data-f=notes]{flex:1 1 140px;min-width:120px}
   .setrow .vol{margin-left:auto}
 }
@@ -1877,6 +1879,7 @@ function vLog(q) {
     const pr = progRowForLog(exName);
     const planned = pr && S.plan[progKey(pr)] ? S.plan[progKey(pr)][logSel.week] : undefined;
     const isTick = plan.t === "warm" || plan.t === "clean";
+    const lastTop = isTick ? 0 : lastWeekTop(exName, logSel.week);
     const blockCls = plan.t === "warm" ? " warmb" : plan.t === "clean" ? " cleanb" : "";
     /* collapse blocks whose planned work is fully logged/ticked (tap to expand) */
     const tkeyC = logSel.week + "|" + logSel.session + "|" + exName;
@@ -1903,6 +1906,7 @@ function vLog(q) {
       (pr && !isTick ? ' <span class="chip ghost">' + esc(pr.load) + "</span>" : "") +
       (plan.back ? ' <span class="chip backc">+' + plan.back + " back-off @ " + Math.round((plan.backPct || BACKOFF_PCT) * 100) + "%</span>" : "") + "</div>" +
       '<div class="meta">' + plan.n + " × " + esc(plan.r) +
+      (lastTop ? ' · last wk: <b>' + lastTop + "</b>" : "") +
       (planned !== undefined && planned !== "" && planned != null ? " · Wk " + logSel.week + " plan: <b>" + esc(planned) + (pr && pr.load === "Time hold" ? " s" : pr && pr.load === "Weighted (kg)" ? " kg" : "") + "</b>" : "") +
       '</div></header><div class="sets' + (S.ui && S.ui.rpe ? "" : " norpe") + '">';
     const used = {};
@@ -2144,13 +2148,10 @@ function setRowHtml(e, cls, label) {
 function ghostRowHtml(exName, setN, isBack, label, autoW, targ) {
   /* Placeholders carry the target reps and — inside the Wk 5–8 ladder — this
      set's ramped weight. Outside the ladder, last week's top weight. */
-  let lastHint = "kg";
   const repsHint = targ && targ.r ? String(targ.r) : "reps";
-  if (targ && targ.w) lastHint = "~" + targ.w;
-  else if (!isBack && logSel && logSel.week > 1) {
-    const top = lastWeekTop(exName, logSel.week);
-    if (top) lastHint = "last " + top;
-  }
+  /* Short placeholders only — a right-aligned number box clips from the left,
+     so the "last week" figure lives in the block header instead. */
+  const lastHint = targ && targ.w ? "~" + targ.w : "kg";
   function gin(f, type, ph, val, auto) {
     return '<input class="mini' + (f === "rpe" || f === "rir" ? " rpef" : "") + '" type="' + type + '" data-gex="' + esc(exName) + '" data-gset="' + setN + '" data-f="' + f + '" value="' + esc(val == null ? "" : val) + '"' + (auto ? ' data-auto="1"' : "") + (ph ? ' placeholder="' + ph + '"' : "") + ' aria-label="' + f + '">';
   }
